@@ -157,10 +157,19 @@ def find_plugins():
     believe the plugin loading does not change the security profile of
     the `fdroid` command line tool.
 
+    https://docs.python.org/3/reference/import.html#searching
+
     When a plugin is called intentionally, like `fdroid hello_world`,
     there's nothing I can do to prevent that plugin from accessing any
     code... So we have to assume users interested in staying safe, won't
     download random scripts from the internet and execute them.
+
+    For those worried about typo squatting, etc or on setups with
+    elevated security concerns, this functionality can be disabled by
+    controlling the Python module loading path as well as the PATH and
+    PYTHONPATH environment variables.
+
+    https://gitlab.com/fdroid/fdroidserver/-/work_items/1351
 
     """
     found_plugins = [{'name': x[1], 'dir': x[0].path} for x in pkgutil.iter_modules() if x[1].startswith('fdroid_')]
